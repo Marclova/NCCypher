@@ -1,8 +1,10 @@
 #include "NCCypher.h"
 
+#include "MacAddressProvider.h"
+
 #define inputPath "input.txt"  //relative path del file input
 #define outputPath "output.txt"  //relative path del file output
-#define myMacAddr "00:0c:29:2c:61:79"
+//#define myMacAddr "00:0c:29:2c:61:79"
 
 long getFileSize();
 
@@ -14,10 +16,9 @@ long getFileSize();
  * @param mode   determina se cifrare (mode==1) o decifrare (mode==-1)
  */
 void start(short mode) {      //questa funzione non rispetta il principio DRY a causa di problemi con le chiamate
-    /*char myMacAddr[17];
-    FILE *macAddr = fopen("/sys/class/net/ens33/address.txt","r");        //non lo uso perché questo programma non è autorizzato a leggere questo file
-    fscanf(macAddr,"%s",myMacAddr);
-    printf("%s\n", myMacAddr);*/
+    char myMacAddr[17];
+    getMacAddress(myMacAddr);
+    printf("il tuo indirizzo MAC è: %s\n",myMacAddr);
     setCypherWithMacAddress(myMacAddr);
 
     FILE *inputFile = fopen(inputPath, "r");
