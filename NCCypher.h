@@ -20,6 +20,11 @@ void actualCalculator();
  */
 char cypherOneCharacter(char c, short mode)
 {
+    if(c=='\n')     //se il carattere l'etto è un backslash. esso verrà ignorato
+    {
+        printf("%c",c);
+        return c;
+    }
     actualCalculator();
     c += (charSwifter * mode);
     return c;
@@ -51,7 +56,7 @@ void incrementCounters() {
         }
         else
         {
-            charSwifter = 1;  //finita la serie consecutiva di "1" il counter viene inpostato ad 1
+            charSwifter = 1;  //finita la serie consecutiva di "1" il counter viene impostato ad 1
         }
     }
     else
@@ -62,7 +67,7 @@ void incrementCounters() {
         }
         else
         {
-            charSwifter = 2;  //finita la serie consecutiva di "0" il counter viene inpostato ad 1
+            charSwifter = 2;  //finita la serie consecutiva di "0" il counter viene impostato ad 1
         }
     }
     if (charSwifter == 7) {charSwifter = 1;}    //evito che il contatore diventi troppo grande per la tabella ASCII
@@ -75,7 +80,7 @@ void incrementCounters() {
  *
  * @param mac The mac to use as cypher key
  */
-void setCypherWithMacAddress(char mac[17]) {   //evito controlli perché l'input è una costante
+void setCypherWithMacAddress(char mac[17]) {
     counterMod5 = 0;
     counterMod7 = 0;
     thisFlag = 0;
@@ -83,11 +88,13 @@ void setCypherWithMacAddress(char mac[17]) {   //evito controlli perché l'input
     charSwifter = 0;
     for(short i=0; i<17; i+=3)   //faccio salti di tre per leggere ogni volta la prima e la seconda cifra dei 6 numeri dell'indirizzo mac
     {
-        int increaseMod5 = mac[i];
-        int increaseMod7 = mac[i+1];
+        short increaseMod5 = mac[i];
+        short increaseMod7 = mac[i+1];
         counterMod5 += increaseMod5;
         counterMod7 += increaseMod7;
-        while (counterMod5 >= 5) {counterMod5 -= 5;}    //mantengo il valore all'interno del modulo
-        while (counterMod7 >= 7) {counterMod7 -= 7;}
+        while (counterMod5 >= 5)
+            counterMod5 -= 5;       //mantengo i valori all'interno dei moduli 5 e 7
+        while (counterMod7 >= 7)
+            counterMod7 -= 7;
     }
 }
