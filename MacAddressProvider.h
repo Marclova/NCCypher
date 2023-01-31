@@ -13,10 +13,11 @@ void getMacAddress(char *mac_address) {
         return;
     }
 
-    for (; ifaddr != NULL; ifaddr = ifaddr->ifa_next) {      //iterazione su tutte le interfacce
-        if (ifaddr->ifa_addr == NULL)      //se l'interaffia corrrente non contiene i dati richiesti, essa viene scartata
-            continue;
-
+    while (1==1)
+    {
+        ifaddr = ifaddr->ifa_next;      //iterazione su tutte le interfacce
+        if (ifaddr == NULL)      //se l'interaffia corrrente Non contiene un indirizzo, allora si è arrivati alla fine dell'iterazione
+            break;
         if ((ifaddr->ifa_flags & IFF_UP) && (ifaddr->ifa_addr->sa_family == AF_PACKET)) {     //controllo se l'interfaccia è attiva ed è un AF_PACKET
             char *interface_name = ifaddr->ifa_name;
             if (interface_name[0] == 'e' || interface_name[0] == 'w') {
