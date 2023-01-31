@@ -7,7 +7,7 @@ short previousFlag;     //insieme a "previousFlag" determina come incrementare "
 short charSwifter;     //il contatore che effettivamente determina la traslazione dei caratteri
 
 void incrementCounters();
-void actualCalculator();
+void countersCalculator();
 
 /**
  *  This function uses the actual calculator in order to set the value of the charSwifter and then use it to
@@ -25,7 +25,7 @@ char cypherOneCharacter(char c, short mode)
         printf("%c",c);
         return c;
     }
-    actualCalculator();
+    countersCalculator();
     c += (charSwifter * mode);
     return c;
 }
@@ -34,7 +34,7 @@ char cypherOneCharacter(char c, short mode)
 /**
  * This function increases the counters and updates the flags
  */
-void actualCalculator() {
+void countersCalculator() {
     thisFlag = (short)((counterMod5 + counterMod7)%2);  //aggiorno "thisFlag" in base al valore attuale dei contatori
     incrementCounters();    //aggiorno i contatori in base al valore di "thisFlag" e "previousFlag"
     previousFlag = thisFlag;    //aggiorno "previousFlag" con il valore di "thisFlag"
